@@ -9,6 +9,14 @@ import (
 	"time"
 )
 
+/*
+Реализовать постоянную запись данных в канал (в главной горутине).
+
+Реализовать набор из N воркеров, которые читают данные из этого канала и выводят их в stdout.
+
+Программа должна принимать параметром количество воркеров и при старте создавать указанное число горутин-воркеров.
+*/
+
 func main() {
 	if len(os.Args) != 2 {
 		fmt.Println("Использование: go run main.go <количество_воркеров>")
@@ -35,9 +43,7 @@ func main() {
 		dataChannel <- randomNum
 		time.Sleep(500 * time.Millisecond)
 	}
-	close(dataChannel)
 
-	wg.Wait()
 }
 
 func worker(id int, dataChannel <-chan int, wg *sync.WaitGroup) {
